@@ -22,6 +22,12 @@ io.on('connection', (socket) => {
   console.log('a user connected');
 
 
+
+  // listing message event from client side
+  socket.on('chat message', (msg) => {
+    console.log('message: ' + msg);
+  });
+
 // if connection disconnect
 socket.on('disconnect', () => {
   console.log('user disconnected');

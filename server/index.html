@@ -28,7 +28,20 @@
 
 <!-- 1 -->
     <script>
-        const socket = io();
+       const socket = io();
+
+const form = document.getElementById('form');
+const input = document.getElementById('input');
+// emit event from client side to server
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (input.value) {
+// firing chat message event to server with msg value
+    socket.emit('chat message', input.value);
+    input.value = '';
+  }
+});
       </script>
   </body>
 </html>
