@@ -20,6 +20,13 @@ app.get('/', (req, res) => {
 // established connection
 io.on('connection', (socket) => {
   console.log('a user connected');
+
+
+// if connection disconnect
+socket.on('disconnect', () => {
+  console.log('user disconnected');
+});
+  
 });
 
 server.listen(5000, () => {
