@@ -1,65 +1,47 @@
 <!DOCTYPE html>
 <!-- 1.integrate socket.io on client -->
-<script src="/socket.io/socket.io.js"></script>
 <html>
   <head>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Socket.IO chat</title>
-    <style>
-      body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-
-      #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
-      #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
-      #input:focus { outline: none; }
-      #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
-
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages > li { padding: 0.5rem 1rem; }
-      #messages > li:nth-child(odd) { background: #efefef; }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <script src="/socket.io/socket.io.js"></script>
   </head>
   <body>
-    <ul id="messages"></ul>
-    <form id="form" action="">
-      <input id="input" autocomplete="off" /><button>Send</button>
-    </form>
+    <section class="msger">
+      <header class="msger-header">
+        <div class="msger-header-title" style="text-align: center;">
+          <i class="fas fa-comment-alt"></i> LiveChat
+        </div>
+        <div class="msger-header-options">
+          <span><i class="fas fa-cog"></i></span>
+        </div>
+      </header>
+    
+      <main class="msger-chat">
+       
+       <div class="welcome" id="welcome">
+ welcome to Live Chat <span id="usernameshow">suraj singh</span>
+       </div>
+       
+       <div class="newUserjoin" id="newUserjoin">
+        <span id="newuserjoinname">suraj singh</span> Join the chat
+              </div>
+     
+
+              <div class="newUserleft">
+                <span id="newuserleftname">suraj singh</span> Left the chat
+                      </div>
+      </main>
+    
+      <form class="msger-inputarea" id="forms">
+        <input type="text" class="msger-input" placeholder="Enter your message..." id="msg">
+        <button type="submit" class="msger-send-btn">Send</button>
+      </form>
+    </section>
 
 
-
-<!-- 1 -->
-    <script>
-       const socket = io();
-
-const form = document.getElementById('form');
-const input = document.getElementById('input');
-// 3
-const messages = document.getElementById('messages');
-// emit event from client side to server
-
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  if (input.value) {
-// firing chat message event to server with msg value
-    socket.emit('chat message', input.value);
-    input.value = '';
-  }
-});
-// 3
-// only to new joiner not to all connected
-socket.on('some event',()=>{
-    document.write('Welcome User');
-})
-// give all alert if new user join
-socket.on('hi',()=>{
-    document.write('a new user join<br>');
-})
-// message send to server
-socket.on('chat message', (msg) => {
-    const item = document.createElement('li');
-    item.textContent = msg;
-    messages.appendChild(item);
-    window.scrollTo(0, document.body.scrollHeight);
-  });
-      </script>
+<script defer src="./script.js" ></script>
+  
   </body>
 </html>

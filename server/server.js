@@ -8,6 +8,7 @@ const { Server } = require('socket.io');
 
 const app = express();
 const server = createServer(app);
+app.use(express.static(path.resolve(__dirname, "public")));
 // run socket.io server on app server
 const io = new Server(server);
 
@@ -16,32 +17,31 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname,'../server/index.html'))
 });
 
-
+var wm = new WeakMap();
 // established connection
 io.on('connection', (socket) => {
   console.log('a user connected');
+  
+// username get
+socket.on('sendUserName',(username)=>{
+  wm.set(socket, username);
+
+})
 
 
-//! broadcasting io.emit()
-// this will emit the event to all connected sockets
-// every one
-// only to new joiner not to all connected
-io.emit('some event', {
-  someProperty: 'some value',
-  otherProperty: 'other value'
-}); 
+  //  to all users
+socket.broadcast.emit('notifyNewUserJoinToEveryOne',wm.get(socket))
 
-// this will give msg to new joiner not every one
-io.on('connection', (socket) => {
-  socket.broadcast.emit('hi');
-});
 
-// every one all new + all joiner
-socket.on('chat message', (msg) => {
-  io.emit('chat message', msg);
-});
+  // to new user only
+socket.emit('newUserConnected',wm.get(socket))
+  // to all connected except new user
+
+
+
 // if connection disconnect
 socket.on('disconnect', () => {
+  wm.delete(socket);
   console.log('user disconnected');
 });
   
