@@ -23,23 +23,25 @@ let users={};
 io.on('connection', (socket) => {
 
   // username get
-  socket.on('new-user-join',username=>{
+  socket.on('new-user-join',data=>{
+    
     // set username in object
-users[socket.id]=username;
-
+users[socket.id]=data;
+// socket.data+=gender;
 
 
 // notify every one that new user join the chat
-socket.broadcast.emit('notify-new-user-to-all',username);
+socket.broadcast.emit('notify-new-user-to-all',data.username);
 // send self message to new user itself
-socket.emit('self-welcome',username);
-
-
+socket.emit('self-welcome',data.username);
   }) 
 
 
 
-
+//message get from user and send to all connected users
+socket.on('send-message',message=>{
+socket.broadcast.emit('receive-message',{data:users[socket.id],message})
+})
 
 // if connection disconnect
 socket.on('disconnect', () => {
