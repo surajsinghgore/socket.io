@@ -23,6 +23,7 @@ let users={};
 let activeUserCount=0;
 io.on('connection', (socket) => {
   // username get
+
   socket.on('new-user-join',data=>{
     activeUserCount++;
     socket.broadcast.emit('live-user-count',activeUserCount);
@@ -30,7 +31,7 @@ io.on('connection', (socket) => {
 users[socket.id]=data;
 
 // notify every one that new user join the chat
-socket.emit('notify-new-user-to-all',data.username);
+socket.broadcast.emit('notify-new-user-to-all',data.username);
 // send self message to new user itself
 socket.emit('self-welcome',data.username);
 socket.emit('self-count',activeUserCount);
@@ -40,7 +41,7 @@ socket.emit('self-count',activeUserCount);
 
 //message get from user and send to all connected users
 socket.on('send-message',message=>{
-socket.broadcast.emit('receive-message',{data:users[socket.id],message})
+socket.broadcast.emit('receive-message',{message,data:users[socket.id]})
 })
 
 // if connection disconnect
@@ -51,6 +52,10 @@ socket.on('disconnect', () => {
     activeUserCount--;
   }
   socket.broadcast.emit('live-user-count',activeUserCount);
+
+
+  // disconnect event
+  socket.broadcast.emit('user-disconnect',users[socket.id]);
 });
   
 });
