@@ -207,3 +207,16 @@ border-radius: 2px;
   }
 
  
+.msger-header-title{
+  display: flex !important;
+  width: 100%;
+  height: 20px;
+}
+.users_count{
+text-align: right ;
+  width: 50%;
+  margin-left: 53%;
+}
+.users_count span{
+color: green;
+}

@@ -6,12 +6,16 @@
     <title>Socket.IO chat</title>
     <link rel="stylesheet" href="style.css">
     <script src="/socket.io/socket.io.js"></script>
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
   </head>
   <body>
     <section class="msger">
       <header class="msger-header">
-        <div class="msger-header-title" style="text-align: center;">
-          <i class="fas fa-comment-alt"></i> LiveChat
+  
+        <div class="msger-header-title" >
+ 
+          <div> LiveChat</div>
+          <div class="users_count"> 🟢<span id="countActiveusers">0 </span> users Live</div>
         </div>
         <div class="msger-header-options">
           <span><i class="fas fa-cog"></i></span>
