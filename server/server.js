@@ -17,32 +17,34 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname,'../server/index.html'))
 });
 
-var wm = new WeakMap();
+
 // established connection
+let users={};
 io.on('connection', (socket) => {
-  console.log('a user connected');
-  
-// username get
-socket.on('sendUserName',(username)=>{
-  wm.set(socket, username);
 
-})
+  // username get
+  socket.on('new-user-join',username=>{
+    // set username in object
+users[socket.id]=username;
 
 
-  //  to all users
-socket.broadcast.emit('notifyNewUserJoinToEveryOne',wm.get(socket))
+
+// notify every one that new user join the chat
+socket.broadcast.emit('notify-new-user-to-all',username);
+// send self message to new user itself
+socket.emit('self-welcome',username);
 
 
-  // to new user only
-socket.emit('newUserConnected',wm.get(socket))
-  // to all connected except new user
+  }) 
+
+
 
 
 
 // if connection disconnect
 socket.on('disconnect', () => {
-  wm.delete(socket);
-  console.log('user disconnected');
+
+
 });
   
 });
