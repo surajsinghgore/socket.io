@@ -108,7 +108,7 @@ console.log(data);
 | Name | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `socket.emit()`      | `event` | **Locally**. use to display information to newly connected user |
-| `io.socket.emit()`      | `event` | **All**. use to display information to all connected users new,old both|
+| `io.sockets.emit()`      | `event` | **All**. use to display information to all connected users new,old both|
 | `socket.broadcast.emit()`      | `event` | **Existing**. use to display information to all connect users except new user|
 
 #### save data
