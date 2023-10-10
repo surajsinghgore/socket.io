@@ -107,6 +107,7 @@ console.log(data);
 
 | Name | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
+| `io.emit()`      | `all` | **all rooms**. use to display information to all clients in namespace |
 | `socket.emit()`      | `event` | **Locally**. use to display information to newly connected user |
 | `io.sockets.emit()`      | `event` | **All**. use to display information to all connected users new,old both|
 | `socket.broadcast.emit()`      | `event` | **Existing**. use to display information to all connect users except new user|
