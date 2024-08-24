@@ -159,3 +159,10 @@ socket.in(roomcode).emit("receive-message", data);
 //number of active users in room
 socket.broadcast.in(roomcode).emit("event-name",data);
 ```
+
+
+## Screenshots
+
+![App Screenshot](https://res.cloudinary.com/dnxv21hr0/image/upload/v1724474405/socket.io/tr58yodqt6rvihxxsh2h.jpg)
+
+![App Screenshot](https://res.cloudinary.com/dnxv21hr0/image/upload/v1724474405/socket.io/th7noflyaqpmmueyjwmu.jpg)
